@@ -28,27 +28,22 @@
 
 ### Run application using ECS
 
-1. create new vpc for ecs on AWS console
-2. create 6 subnets (3 public and 3 private)
-3. create security group for load balancer with open 80 port
-4. create security group for ecs cluster with inbound to load balancer security group
-5. create a target group of instance type
-6. create a application load balancer using 3 public subnets, select a security group you create earlier for load balancer and then select target group you created earlier
-7. create ssh key pair for ecs servers
-8. create ECS cluster with EC2 option
-    * select Amazon Linux 2 in OS
-    * select t2.micro instance type
-    * select key pair you created earlier
-    * select 3 private subnets
-    * select capacity minimum 1 and maximum 2
-9. create task definition, in container 1
+1. create ECS cluster
+    * type name
+    * select any vpc and subnets
+    * select fargate from AWS Infrastructure
+2. create task definition
+    * type name
+    * In container 1 type container name
     * copy the ecr image url and tag and paste in image URI
     * container port 80
-    * select EC2 type
-10. create service inside cluster
-    * select launch type EC2
+    * select app environment fargate
+3. create service inside cluster
+    * select launch type fargate
     * select application type Service
-    * select task definition you created earlier
+    * in family select task definition you created earlier
+    * type service name
     * in load balancer select application
-    * select load balancer you created earlier
-    * select target group you created earlier
+    * create new type name
+    * select create new target group type name
+4. go to load balancers, copy the dns name and paste in browser to see application is working
